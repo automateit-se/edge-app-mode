@@ -1,0 +1,24 @@
+{
+  "author": "AutomateIT",
+  "license": "MIT",
+  "input": {
+    "name": { "type": "text", "name": "Namn", "description": "Namnet på funktionen i IoT Open, till exempel Läge.", "default": "Läge", "required": true },
+    "mode_name": { "type": "text", "name": "Teknisk benämning", "description": "Används i topics (obj/mode/<benämning>) och av andra appar. Behåll default om installationen bara har ett läge.", "default": "default", "required": true, "validator": "^[a-z0-9_-]+$", "on_error": "Små bokstäver, siffror, _ och -" },
+    "states": {
+      "type": "repeat",
+      "name": "Lägen",
+      "description": "Varje läge har ett värde (det som skickas), en teknisk nyckel på engelska som andra appar använder, och en benämning som personal ser.",
+      "input_fields": ["state_value", "state_key", "state_label"],
+      "min": 2,
+      "max": 20
+    },
+    "state_value": { "type": "number", "name": "Värde", "description": "Heltal, 0, 1, 2 ...", "default": 0, "min": 0, "max": 99, "required": true },
+    "state_key": { "type": "text", "name": "Nyckel", "description": "Teknisk nyckel på engelska, till exempel home, away, vacation, patient, cleaning, conference, armed.", "required": true, "validator": "^[a-z0-9_-]+$", "on_error": "Små bokstäver, siffror, _ och -" },
+    "state_label": { "type": "text", "name": "Benämning", "description": "Det personal ser, till exempel Hemma, Borta, Semester.", "required": true },
+    "initial_state": { "type": "text", "name": "Startläge", "description": "Nyckeln för läget som gäller när appen startar första gången. Tomt: läget med lägst värde. Efter det behålls senaste läget.", "validator": "^$|^[a-z0-9_-]+$", "on_error": "En nyckel, till exempel home" }
+  },
+  "guide": [
+    { "id": "stage_1", "title": "Läge", "description": "Ett gemensamt läge för installationen som andra appar tar hänsyn till, till exempel om dörrlarm ska skickas.", "input_fields": ["name", "mode_name"] },
+    { "id": "stage_2", "title": "Lägen", "description": "", "input_fields": ["states", "initial_state"] }
+  ]
+}

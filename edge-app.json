@@ -1,0 +1,6 @@
+{
+  "name": "Läge",
+  "category": "system",
+  "short_description": "Ett gemensamt läge för installationen, till exempel Hemma, Borta, Semester eller Patient, Städ, Larmat, som andra appar tar hänsyn till.",
+  "tags": ["mode", "state", "alarm", "home", "away"]
+}
