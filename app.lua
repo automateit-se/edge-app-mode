@@ -9,7 +9,7 @@
 -- Apps refer to states by key, so states can be added or reordered without breaking them. The value is published
 -- retained on the local broker, so an app that starts without internet still knows the mode.
 
-local VERSION = "0.1.0"
+local VERSION = "0.1.1"
 local FUNCTION_TYPE = "mode"
 local KEY_APP = "mode.app_id"
 
@@ -17,6 +17,9 @@ local M = {}
 
 local function is_null(v) return v == nil or (json ~= nil and v == json.null) end
 local function trim(s) return (tostring(s or ""):gsub("^%s+", ""):gsub("%s+$", "")) end
+
+--- The edge client's log has i, e and d (no w): warnings are written with log.i.
+local function warn(f, ...) log.i("warning: " .. f, ...) end
 local function str(v) if is_null(v) then return "" end return trim(v) end
 
 -- ---- states ----------------------------------------------------------------------------------------------------
@@ -141,7 +144,7 @@ function M.on_set(_, payload)
   local wanted = ok and type(data) == "table" and data.value or trim(payload)
   local s = M.find(state.states, wanted)
   if s == nil then
-    log.w("unknown mode %s refused", tostring(wanted))
+    warn("unknown mode %s refused", tostring(wanted))
     if state.current then publish(state.current, "refused: " .. tostring(wanted)) end
     return
   end
@@ -191,7 +194,7 @@ end
 function onStart()
   local problems
   state.states, problems = M.states(cfg)
-  for _, p in ipairs(problems) do log.w("state %d: %s is missing or not valid", p[1], p[2]) end
+  for _, p in ipairs(problems) do warn("state %d: %s is missing or not valid", p[1], p[2]) end
   if #state.states == 0 then
     log.e("no valid states: nothing to do")
     return

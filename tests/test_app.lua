@@ -79,7 +79,7 @@ local function load_app(opts)
     MODE_TEST = true, cfg = opts.cfg or HOME, app = { id = 3, installation_id = 1001 },
     json = json, lynx = lynx, mq = mq, timer = timer,
     os = setmetatable({ time = function() return sim.clock end }, { __index = os }),
-    log = { i = logger("I"), w = logger("W"), e = logger("E") },
+    log = { i = logger("I"), e = logger("E") },
   }, { __index = _G })
   local M = assert(loadfile("app.lua", "t", env))()
   function sim.advance(secs)
@@ -197,7 +197,7 @@ check("no valid states: nothing is created", function()
 end)
 
 check("the code returns nothing in the edge client", function()
-  local env = setmetatable({ cfg = {}, app = { id = 1 }, log = { i = print, w = print, e = print }, json = { null = {} } }, { __index = _G })
+  local env = setmetatable({ cfg = {}, app = { id = 1 }, log = { i = print, e = print }, json = { null = {} } }, { __index = _G })
   local chunk = assert(loadfile("app.lua", "t", env))
   eq(select("#", chunk()), 0, "returned values")
 end)

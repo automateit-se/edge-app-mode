@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 0.1.1
+
+- An unknown mode value or an invalid state stopped the app: the edge client's log has no `log.w`. Warnings are
+  now written with `log.i` as `warning: ...`, and the tests use a log without `w`.
+
 ## 0.1.0
 
 - First version. One function of type `mode` for the installation: `obj/mode/<mode_name>` (value = the state's
