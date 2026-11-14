@@ -1,7 +1,7 @@
 # Mode - Läge (IoT Open edge app)
 
 An IoT Open edge app that keeps one shared mode for the installation, which other Edge Apps take into account:
-Hemma / Borta / Semester at home, or Patient / Städ / Konferens / Larmat in a training flat. Each app does not have
+Hemma / Borta / Semester at home, or Patient / Städ / Konferens / Larmat in other premises. Each app does not have
 to have its own idea of "away"; they all read the same function.
 
 Technical names (keys, metadata, topics) are in English; the labels and the settings form are in Swedish.

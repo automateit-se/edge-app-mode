@@ -1,5 +1,5 @@
 -- Mode (Läge): one shared mode for the installation, for example Hemma / Borta / Semester at home, or
--- Patient / Städ / Konferens / Larmat in a training flat. Other Edge Apps read it and act on it.
+-- Patient / Städ / Konferens / Larmat in other premises. Other Edge Apps read it and act on it.
 --
 -- The app keeps one function of type "mode":
 --   topic_read  obj/mode/<mode_name>       value = the state's number, msg = who or what changed it
